@@ -24,9 +24,6 @@ export class UserCreatedListener extends Listener<UserRegisteredEvent> {
       isBlocked: false,
     });
 
-    console.log("************");
-    console.log(createdProfile);
-    console.log("************");
 
     if (createdProfile) {
       await new ProfileCreatedPublisher(natsWrapper.client).publish({

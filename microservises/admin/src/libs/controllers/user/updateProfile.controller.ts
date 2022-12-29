@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { BadRequestError, NotAuthorizedError } from "@hpshops/common";
-import { ProfileUpdatedPublisher } from "../../../events/publisher/profile-updated-publisher";
+import { BadRequestError, NotAuthorizedError } from "@hpshops/common/build";
+import { UserBlockPublisher } from "../../../events/publisher.ts/user-block-event";
 import { natsWrapper } from "../../../nats-wrapper";
 
 export = (dependencies: any): any => {
@@ -15,7 +15,6 @@ export = (dependencies: any): any => {
   ) => {
     try {
       const { userId } = req.params;
-      console.log(req.body);
 
       const userProfile = await updateUserProfile_UseCase(dependencies).execute(
         userId,
@@ -26,10 +25,9 @@ export = (dependencies: any): any => {
         throw new BadRequestError("No such profile found");
       }
 
-      await new ProfileUpdatedPublisher(natsWrapper.client).publish({
+      await new UserBlockPublisher(natsWrapper.client).publish({
         userId: userProfile.id,
-        address: userProfile.address,
-        image: userProfile.image,
+        isBlocked: userProfile.isBlocked,
       });
 
       res.json({ status: true, content: userProfile });
