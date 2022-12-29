@@ -4,9 +4,6 @@ import { connectDB } from "./config/db";
 import { intPort } from "./config/port";
 import { natsWrapper } from "./nats-wrapper";
 
-import { hi } from "../../../libs/index";
-// console.log(hi);
-
 
 const start = async () => {
   if (!process.env.JWT_KEY) {

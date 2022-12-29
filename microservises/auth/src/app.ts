@@ -3,14 +3,15 @@ import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { routes } from "./routes";
+import ErrorHandler from "./libs/utils/ErrorHnadler";
 import {
   NotAuthorizedError,
   NotFoundError,
   errorHandler,
 } from "@hpshops/common/build";
+import depentencies from "./libs/auth/config/depentencies";
 
 const app = express();
-
 const router = express.Router();
 
 app.set("trust proxy", true);
@@ -21,14 +22,12 @@ app.use(
   })
 );
 
-// app.use("/api", routes(anme));
+app.use("/api", routes(depentencies));
 
 app.all("*", async (req, res) => {
-  console.log(777777777777777);
-
   throw new NotFoundError();
 });
 
-app.use(errorHandler);
+app.use(ErrorHandler);
 
 export { app };

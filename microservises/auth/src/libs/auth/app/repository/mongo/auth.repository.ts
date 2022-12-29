@@ -5,8 +5,12 @@ const { User } = schemas;
 
 export = {
   signUp: async (user: any) => {
-    console.log("sign");
     const mongooseObject = User.build(user);
     return await mongooseObject.save();
+  },
+
+  getUser: async (user: any) => {
+    const userList = await User.find({ email: user.email });
+    return userList;
   },
 };
