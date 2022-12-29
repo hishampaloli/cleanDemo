@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { BadRequestError, NotAuthorizedError } from "@hpshops/common/build";
+import { ProductCreatedPublisher } from "../../../events/publisher.ts/product-created-event";
+import { natsWrapper } from "../../../nats-wrapper";
 
 export = (dependencies: any): any => {
   const {
@@ -12,14 +14,31 @@ export = (dependencies: any): any => {
     next: NextFunction
   ) => {
     try {
-      console.log(req.body);
+      const { title, description, stock, price, image } = req.body;
+
+      if (!title) throw new BadRequestError("Please provide a title");
+      if (!description)
+        throw new BadRequestError("Please provide a description ");
+      if (!stock) throw new BadRequestError("Please provide a valid stock");
+      if (!price) throw new BadRequestError("Please provide a valid price");
+      if (!image) throw new BadRequestError("Please provide a image link");
+
       const addedProduct = await createProduct_UseCase(dependencies).execute(
         req.body
       );
 
       if (!addedProduct) {
-        throw new BadRequestError("No such profile found");
+        throw new BadRequestError("Something went wrong");
       }
+
+      await new ProductCreatedPublisher(natsWrapper.client).publish({
+        description: addedProduct.description,
+        title: addedProduct.title,
+        stock: Number(addedProduct.stock),
+        price: Number(addedProduct.price),
+        image: addedProduct.image,
+        id: addedProduct.id,
+      });
 
       res.json({ status: true, content: addedProduct });
     } catch (error: any) {

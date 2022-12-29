@@ -9,6 +9,7 @@ import {
 } from "@hpshops/common/build";
 import { routes } from "./routes";
 import depentencies from "./config/depentencies";
+import ErrorHnadler from "./libs/utils/ErrorHnadler";
 
 const app = express();
 
@@ -28,6 +29,6 @@ app.all("*", async (req, res) => {
   throw new NotFoundError();
 });
 
-app.use(errorHandler);
+app.use(ErrorHnadler);
 
 export { app };

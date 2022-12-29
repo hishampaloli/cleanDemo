@@ -11,7 +11,7 @@ export = {
   },
 
   getProduct: async (productId: string) => {
-    const mongooseObject = await Product.findById({ productId });
+    const mongooseObject = await Product.findById(productId);
     return mongooseObject;
   },
 
@@ -21,7 +21,11 @@ export = {
   },
 
   updateProduct: async (productId: string, data: any) => {
-    const mongooseObject = await Product.findByIdAndUpdate(productId, data);
+    const mongooseObject = await Product.findByIdAndUpdate(productId, data, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
     return mongooseObject;
   },
 };
