@@ -1,7 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import e, { Request, Response, NextFunction } from "express";
 import { BadRequestError, NotAuthorizedError } from "@hpshops/common";
 import generateToken from "../../../utils/jsonwebtoken";
 import { CommonResponse } from "../../../utils/Response";
+import { UserRegisteredPublisher } from "../../../../events/publishers/user-registered-publisher";
+import { natsWrapper } from "../../../../nats-wrapper";
 
 export = (dependencies: any): any => {
   const {
@@ -11,6 +13,10 @@ export = (dependencies: any): any => {
   const signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, email, password } = req.body;
+
+      if (!name) throw new BadRequestError("Please provide a name");
+      if (!email) throw new BadRequestError("Please provide a email");
+      if (!password) throw new BadRequestError("Please provide a password");
 
       const userPresent = await getUser_UseCase(dependencies).execute({
         name,
@@ -22,7 +28,7 @@ export = (dependencies: any): any => {
       if (userPresent.length) {
         throw new BadRequestError("Email already in use !");
       }
-      
+
       const addedUser = await signUp_UseCase(dependencies).execute({
         name,
         email,
@@ -35,6 +41,13 @@ export = (dependencies: any): any => {
         jwt: token,
         userDetails: addedUser,
       };
+
+      await new UserRegisteredPublisher(natsWrapper.client).publish({
+        userId: addedUser.id,
+        email: addedUser.email,
+        name: addedUser.name,
+        version: 1,
+      });
 
       res.json({ status: true, content: addedUser });
     } catch (error: any) {

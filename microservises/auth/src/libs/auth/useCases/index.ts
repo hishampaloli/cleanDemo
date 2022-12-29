@@ -1,3 +1,3 @@
-import { signUp_UseCase, getUser_UseCase } from "./auth";
+import { signUp_UseCase, getUser_UseCase, signIn_UseCase } from "./auth";
 
-export { signUp_UseCase, getUser_UseCase };
+export { signUp_UseCase, getUser_UseCase, signIn_UseCase };
