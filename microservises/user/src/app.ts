@@ -2,14 +2,14 @@ import express, { Request, Response } from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { routes } from "./routes";
 import ErrorHandler from "./libs/utils/ErrorHnadler";
 import {
   NotAuthorizedError,
   NotFoundError,
   errorHandler,
 } from "@hpshops/common/build";
-import depentencies from "./config/depentencies";
+import { routes } from "./routes";
+import depentencies from "./config/dependencies";
 
 const app = express();
 const router = express.Router();
@@ -21,6 +21,7 @@ app.use(
     signed: false,
   })
 );
+
 
 app.use("/api", routes(depentencies));
 

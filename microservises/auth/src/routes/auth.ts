@@ -7,7 +7,7 @@ import {
   requireAuth,
 } from "@hpshops/common";
 
-import { authController } from "../libs/auth/controllers";
+import { authController } from "../libs/controllers";
 
 export = (dependencies: any) => {
   const router = express.Router();
