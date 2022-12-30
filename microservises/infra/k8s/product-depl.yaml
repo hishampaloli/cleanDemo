@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-depl
+  name: product-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin
+      app: product
   template:
     metadata:
       labels:
-        app: admin
+        app: product
     spec:
       containers:
-        - name: admin
-          image: hishampaloli/admin
+        - name: product
+          image: hishampaloli/product
           env:
             - name: MONGO_URL
-              value: "mongodb+srv://hishampaloli:hishampaloli@cleandemoadmin.tx0qgmb.mongodb.net"
+              value: "mongodb+srv://hishampaloli:hishampaloli@cleandemoproducts.zzxh94f.mongodb.net"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -31,12 +31,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: admin-srv
+  name: product-srv
 spec:
   selector:
-    app: admin
+    app: product
   ports:
-    - name: admin
+    - name: product
       protocol: TCP
       port: 3000
       targetPort: 3000

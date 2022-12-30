@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
-import { ProfileCreatedListener } from "./events/listeners/profile-created-event";
-import { ProfileUpdateListener } from "./events/listeners/profile-updated-event";
-import { connectDB } from "./config/db";
+import { ProductCreatedListener } from "./events/listeners/product-created-listener";
+import { ProductUpdatedListener } from "./events/listeners/product-updated-listener";
+import { ProductDeletedListener } from "./events/listeners/product-deleted-listener";
+import { connectDB } from "./configs/db";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -15,7 +16,7 @@ const start = async () => {
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("MONGO_URI must be defined");
   }
-
+  
   try {
     await natsWrapper.connect(
       "ticketing",
@@ -31,8 +32,9 @@ const start = async () => {
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
 
-    new ProfileCreatedListener(natsWrapper.client).listen();
-    new ProfileUpdateListener(natsWrapper.client).listen();
+    new ProductCreatedListener(natsWrapper.client).listen();
+    new ProductUpdatedListener(natsWrapper.client).listen();
+    new ProductDeletedListener(natsWrapper.client).listen();
 
     connectDB();
   } catch (err) {

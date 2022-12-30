@@ -31,5 +31,12 @@ build:
       sync:
         manual:
           - src: "src/**/*.ts"
-            dest: .            
-
+            dest: .
+    - image: hishampaloli/product
+      context: products
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
