@@ -2,8 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { BadRequestError, NotAuthorizedError } from "@hpshops/common";
 import { ProfileUpdatedPublisher } from "../../../events/publisher/profile-updated-publisher";
 import { natsWrapper } from "../../../nats-wrapper";
+import { DepenteniciesData } from "../../entities/interfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: DepenteniciesData): any => {
   const {
     useCases: { updateUserProfile_UseCase },
   } = dependencies;
@@ -32,7 +33,7 @@ export = (dependencies: any): any => {
         image: userProfile.image,
       });
 
-      res.json({ status: true, content: userProfile });
+      res.json(userProfile);
     } catch (error: any) {
       throw new Error(error);
     }

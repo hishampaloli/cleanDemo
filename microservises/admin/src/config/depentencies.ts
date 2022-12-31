@@ -12,7 +12,7 @@ import {
   updateProduct_UseCase,
 } from "../libs/useCases";
 
-const useCases = {
+const useCases: any = {
   createProfile_UseCase,
   getUserProfiles_UseCase,
   updateUserProfile_UseCase,
@@ -22,7 +22,7 @@ const useCases = {
   updateProduct_UseCase,
 };
 
-const repository = {
+const repository: any = {
   userRepository,
   productRepository,
 };

@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { BadRequestError, NotAuthorizedError } from "@hpshops/common";
+import { DepenteniciesData } from "../../entities/interfaces";
 
-export = (dependencies: any): any => {
+export = (dependencies: DepenteniciesData): any => {
   const {
     useCases: { getUserProfile_UseCase },
   } = dependencies;
@@ -21,7 +22,7 @@ export = (dependencies: any): any => {
         throw new BadRequestError("No such profile found");
       }
 
-      res.json({ status: true, content: userProfile });
+      res.json(userProfile);
     } catch (error: any) {
       throw new Error(error);
     }

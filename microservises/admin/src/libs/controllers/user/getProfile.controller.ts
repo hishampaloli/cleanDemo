@@ -18,7 +18,7 @@ export = (dependencies: any): any => {
         throw new BadRequestError("No such profile found");
       }
 
-      res.json({ status: true, content: userProfile });
+      res.json(userProfile);
     } catch (error: any) {
       throw new Error(error);
     }

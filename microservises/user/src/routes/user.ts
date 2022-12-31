@@ -9,8 +9,9 @@ import {
 } from "@hpshops/common";
 
 import { userController } from "../libs/controllers";
+import { DepenteniciesData } from "../libs/entities/interfaces";
 
-export = (dependencies: any) => {
+export = (dependencies: DepenteniciesData) => {
   const router = express.Router();
   const { getProfileController, updateProfileController } =
     userController(dependencies);

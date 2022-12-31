@@ -40,7 +40,7 @@ export = (dependencies: any): any => {
         id: addedProduct.id,
       });
 
-      res.json({ status: true, content: addedProduct });
+      res.json(addedProduct);
     } catch (error: any) {
       throw new Error(error);
     }

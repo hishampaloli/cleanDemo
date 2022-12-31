@@ -1,6 +1,7 @@
 import { UserData, UserProfile } from "../../entities";
+import { DepenteniciesData } from "../../entities/interfaces";
 
-export const getUserProfile_UseCase = (dependencies: any) => {
+export const getUserProfile_UseCase = (dependencies: DepenteniciesData) => {
   const {
     repository: { userRepository },
   } = dependencies;

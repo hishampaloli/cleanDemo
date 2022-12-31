@@ -1,6 +1,7 @@
 import { Product, ProductData } from "../../entities";
+import { DepenteniciesData } from "../../entities/interface";
 
-export const createProduct_UseCase = (dependencies: any) => {
+export const createProduct_UseCase = (dependencies: DepenteniciesData) => {
   const {
     repository: { productRepository },
   } = dependencies;

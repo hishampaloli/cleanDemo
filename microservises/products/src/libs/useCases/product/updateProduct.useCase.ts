@@ -1,4 +1,6 @@
-export const updateProduct_UseCase = (dependencies: any) => {
+import { DepenteniciesData } from "../../entities/interface";
+
+export const updateProduct_UseCase = (dependencies: DepenteniciesData) => {
   const {
     repository: { productRepository },
   } = dependencies;

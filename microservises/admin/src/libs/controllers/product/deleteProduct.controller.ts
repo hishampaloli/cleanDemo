@@ -28,7 +28,7 @@ export = (dependencies: any): any => {
         id: product.id,
       });
 
-      res.json({ status: true, content: product, message: "deleted" });
+      res.json({ message: "deleted" });
     } catch (error: any) {
       throw new Error(error);
     }

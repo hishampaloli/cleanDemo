@@ -11,8 +11,6 @@ export class ProfileCreatedListener extends Listener<ProfileCreatedEvent> {
   async onMessage(data: ProfileCreatedEvent["data"], msg: Message) {
     const { name, email, userId, image, address, isBlocked } = data;
 
-    console.log('evenr in admin');
-    
 
     const createdProfile = await createProfile_UseCase(depentencies).execute({
       address: address,

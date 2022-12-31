@@ -30,7 +30,7 @@ export = (dependencies: any): any => {
         isBlocked: userProfile.isBlocked,
       });
 
-      res.json({ status: true, content: userProfile });
+      res.json(userProfile);
     } catch (error: any) {
       throw new Error(error);
     }

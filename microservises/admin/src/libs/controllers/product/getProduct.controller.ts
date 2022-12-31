@@ -22,7 +22,7 @@ export = (dependencies: any): any => {
         throw new BadRequestError("No such Product found");
       }
 
-      res.json({ status: true, content: product });
+      res.json(product);
     } catch (error: any) {
       throw new Error(error);
     }

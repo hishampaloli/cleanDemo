@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { BadRequestError } from "@hpshops/common/build";
+import { DepenteniciesData } from "../../entities/interface";
 
-export = (dependencies: any): any => {
+export = (dependencies: DepenteniciesData): any => {
   const {
     useCases: { getAllProduct_UseCase },
   } = dependencies;
@@ -19,7 +20,7 @@ export = (dependencies: any): any => {
         throw new BadRequestError("No such Product found");
       }
 
-      res.json({ status: true, content: product });
+      res.json(product);
     } catch (error: any) {
       throw new Error(error);
     }

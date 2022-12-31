@@ -1,17 +1,14 @@
-import { userRepository } from "../libs/app/repository/mongo";
-import {
-  getUser_UseCase,
-  signUp_UseCase,
-  signIn_UseCase,
-} from "../libs/useCases";
+import { userRepository } from "../app/repository/mongo";
+import { repositoryData, useCaseData } from "../libs/entities/interfaces";
+import { getUser_UseCase, signUp_UseCase, signIn_UseCase } from "../useCases";
 
-const useCases = {
+const useCases: useCaseData = {
   getUser_UseCase,
   signUp_UseCase,
   signIn_UseCase,
 };
 
-const repository = {
+const repository: repositoryData = {
   userRepository,
 };
 
