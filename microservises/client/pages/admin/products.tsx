@@ -6,6 +6,7 @@ import AddProduct from "../../components/admin/AddProduct";
 import Layout from "../../components/layout/Layout";
 import ProductComponents from "../../components/products/ProductComponents";
 import { useActions } from "../../hooks/useAction";
+import { isAdminUser } from "../../hooks/useCheckAuth";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { ProductData, ProductState } from "../../models/product";
 import { AuthState, UserAuthData } from "../../models/user";
@@ -19,10 +20,8 @@ const products: React.FC = (): JSX.Element => {
 
   const { getProducts } = useActions();
 
-  useEffect(() => {
-    if (user?.email !== "admin@gmail.com") {
-      Router.push("/");
-    }
+  isAdminUser()
+  useEffect(() => {    
     getProducts("sdf");
   }, []);
 

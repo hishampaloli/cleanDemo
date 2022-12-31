@@ -101,11 +101,16 @@ export const UpdateUser =
   (req: any, updateData: UpdateProfileData, id: string) =>
   async (dispatch: Dispatch<UpdateProfile>) => {
     try {
+console.log(33434343433434334);
+
       const { data } = await buildClient(req).post<UserAuthData>(
         `/api/user/${id}`,
         updateData,
         config
       );
+
+      
+      
 
       dispatch({
         type: UserActionsTypes.SIGNUP_SUCCESS,
