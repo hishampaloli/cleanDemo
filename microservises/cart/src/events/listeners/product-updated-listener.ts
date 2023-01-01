@@ -1,0 +1,31 @@
+import { Message } from "node-nats-streaming";
+import { Subject, Listener, ProductUpdatedEvent } from "@hpshops/common";
+import { queueGroupName } from "./queue-group-name";
+import { Product } from "../../models/products";
+import { natsWrapper } from "../../nats-wrapper";
+
+export class ProductUpdatedListener extends Listener<ProductUpdatedEvent> {
+  subject: Subject.ProductUpdated = Subject.ProductUpdated;
+  queueGroupName = queueGroupName;
+
+  async onMessage(data: ProductUpdatedEvent["data"], msg: Message) {
+    const { description, id, image, price, stock, title } = data;
+
+    try {
+
+      const product = await Product.findById(id);
+
+      if (product) {
+        const product = await Product.findByIdAndUpdate(id, data, {
+          new: true,
+          runValidators: true,
+          useFindAndModify: false,
+        });
+
+        msg.ack();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}

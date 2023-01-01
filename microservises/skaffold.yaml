@@ -40,6 +40,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: hishampaloli/cart
+      context: cart
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: hishampaloli/client
       context: client
       docker:
