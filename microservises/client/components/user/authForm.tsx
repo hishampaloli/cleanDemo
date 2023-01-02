@@ -16,7 +16,6 @@ const AuthForm = ({ formFor }: { formFor: string }) => {
     if (formFor === "login") Login("", { email, password });
   };
 
-  useCheckAuth();
 
   return (
     <div

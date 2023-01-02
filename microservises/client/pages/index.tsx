@@ -8,7 +8,7 @@ import { AuthState } from "../models/user";
 import { ProductState } from "../models/product";
 import ProductComponents from "../components/products/ProductComponents";
 import { getProducts } from "../redux/actions-creater";
-import { useCheckAuth } from "../hooks/useCheckAuth";
+import { isNormalUser, useCheckAuth } from "../hooks/useCheckAuth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function Home() {
   );
 
 
-  useCheckAuth();
+  isNormalUser();
 
   return (
     <>

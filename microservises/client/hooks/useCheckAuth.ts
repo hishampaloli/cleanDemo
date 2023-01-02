@@ -10,10 +10,6 @@ export const useCheckAuth = () => {
   const { clearErrors } = useActions();
 
   useEffect(() => {
-    if (user?.email === "admin@gmail.com") {
-      Router.push("/admin");
-    }
-
     if (user?.email) {
       Router.push("/");
     }
@@ -29,18 +25,17 @@ export const isNormalUser = () => {
 
   useEffect(() => {
     if (user?.email === "admin@gmail.com") {
-      Router.back();
+      Router.push("/admin");
     }
   }, []);
 };
 
 export const isAdminUser = () => {
-    const { user }: AuthState = useTypedSelector((state) => state.user);
-  
-    useEffect(() => {
-      if (user?.email !== "admin@gmail.com") {
-        Router.back();
-      }
-    }, []);
-  };
-  
+  const { user }: AuthState = useTypedSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user?.email !== "admin@gmail.com") {
+      Router.push("/");
+    }
+  }, []);
+};

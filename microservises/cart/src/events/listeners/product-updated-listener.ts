@@ -12,16 +12,14 @@ export class ProductUpdatedListener extends Listener<ProductUpdatedEvent> {
     const { description, id, image, price, stock, title } = data;
 
     try {
+      const productFound = await Product.findById(id);
 
-      const product = await Product.findById(id);
-
-      if (product) {
+      if (productFound) {
         const product = await Product.findByIdAndUpdate(id, data, {
           new: true,
           runValidators: true,
           useFindAndModify: false,
         });
-
         msg.ack();
       }
     } catch (error) {

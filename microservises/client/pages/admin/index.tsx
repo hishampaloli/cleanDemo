@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Users from "../../components/admin/Users";
 import Layout from "../../components/layout/Layout";
 import { useActions } from "../../hooks/useAction";
-import { isAdminUser, isNormalUser } from "../../hooks/useCheckAuth";
+import { isAdminUser, isNormalUser, useCheckAuth } from "../../hooks/useCheckAuth";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { AllUsersState } from "../../models/admin";
 import { AuthState } from "../../models/user";

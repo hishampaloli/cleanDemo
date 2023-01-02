@@ -7,8 +7,11 @@ import { AuthState } from "../../models/user";
 import { useActions } from "../../hooks/useAction";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import AuthForm from "../../components/user/authForm";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
 
 const SignUp: React.FC = () => {
+  
+  useCheckAuth();
   return (
     <Layout title={"Login"}>
       <AuthForm formFor={"register"} />
